@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Flick Gol</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="stage">
+      <canvas id="cv"></canvas>
+
+      <!-- LOADING -->
+      <div class="screen" id="sLoad">
+        <h1>FLICK<br />GOL</h1>
+        <div class="bar"><div id="fill"></div></div>
+        <div class="lab">MEMUAT <span id="pct">0</span>%</div>
+      </div>
+
+      <!-- MENU UTAMA -->
+      <div class="screen hidden" id="sMenu">
+        <h1>FLICK<br />GOL</h1>
+        <div class="rec hidden" id="menuNew">REKOR BARU!</div>
+        <div class="lab">REKOR TERTINGGI</div>
+        <div class="big" id="menuBest">0</div>
+        <button class="btn" id="btnPlay">MAIN</button>
+
+        <!-- Kredit & Logo Nusantara Assets -->
+        <div class="credit-box">
+          <img
+            src="assets/logo.png"
+            alt="Nusantara Assets Logo"
+            class="asset-logo"
+          />
+          <span>Assets by<br />nusantaraassets</span>
+        </div>
+      </div>
+
+      <!-- GAME OVER -->
+      <div class="screen hidden" id="sOver">
+        <div class="over">GAME OVER</div>
+        <div class="lab">SKOR KAMU</div>
+        <div class="big" id="overScore">0</div>
+        <div class="rec hidden" id="overNew">REKOR BARU!</div>
+        <div class="lab">REKOR: <span id="overBest">0</span></div>
+        <button class="btn" id="btnAgain">MAIN LAGI</button>
+        <button class="btn alt" id="btnMenu">MENU</button>
+      </div>
+
+      <!-- TOMBOL KELUAR & MUTE DI DALAM GAME -->
+      <button class="chip hidden" id="btnExit">KELUAR</button>
+      <button class="chip hidden" id="btnMute" aria-label="Suara">
+        SUARA: ON
+      </button>
+    </div>
+
+    <!-- AUDIO -->
+    <audio id="bgm" loop preload="auto"></audio>
+    <audio id="sfxGoal" preload="auto"></audio>
+
+    <script src="game.js"></script>
+  </body>
+</html>

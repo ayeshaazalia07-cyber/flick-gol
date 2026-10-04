@@ -1,0 +1,195 @@
+/* ===== Flick Gol - gaya pixel ===== */
+:root {
+  --navy: #14213d;
+  --orange: #ff9f1a;
+  --dark-orange: #b86500;
+  --sun: #ffd43b;
+  --sky: #4cb8f0;
+  --white: #fff;
+  --u: 1px; /* satuan skala, diatur otomatis oleh game.js */
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+html {
+  height: 100%;
+  scroll-padding-top: env(safe-area-inset-top, 0px);
+}
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+body {
+  margin: 0;
+  height: 100%;
+  background: var(--navy);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Press Start 2P", ui-monospace, Menlo, Consolas, monospace;
+  color: var(--white);
+  overflow: hidden;
+  image-rendering: pixelated;
+}
+#stage {
+  position: relative;
+  width: min(100vw, calc(100dvh * 9 / 16));
+  aspect-ratio: 9/16;
+  overflow: hidden;
+  background: var(--sky);
+}
+canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+  image-rendering: pixelated;
+}
+
+/* layar overlay */
+.screen {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: calc(18 * var(--u));
+  text-align: center;
+  background: rgba(20, 33, 61, 0.6);
+}
+.hidden {
+  display: none !important;
+}
+
+h1 {
+  margin: 0;
+  font-weight: 400;
+  font-size: calc(40 * var(--u));
+  line-height: 1.3;
+  color: var(--sun);
+  text-shadow:
+    calc(4 * var(--u)) calc(4 * var(--u)) 0 var(--navy),
+    calc(4 * var(--u)) calc(8 * var(--u)) 0 var(--dark-orange);
+}
+.lab {
+  font-size: calc(12 * var(--u));
+  line-height: 1.5;
+}
+.big {
+  font-size: calc(56 * var(--u));
+  line-height: 1;
+  color: var(--sun);
+  text-shadow: calc(4 * var(--u)) calc(4 * var(--u)) 0 var(--navy);
+}
+.over {
+  font-size: calc(28 * var(--u));
+  line-height: 1.2;
+  color: var(--sun);
+  text-shadow: calc(4 * var(--u)) calc(4 * var(--u)) 0 var(--navy);
+}
+.rec {
+  font-size: calc(12 * var(--u));
+  color: var(--navy);
+  background: var(--sun);
+  padding: calc(8 * var(--u)) calc(14 * var(--u));
+  border: calc(4 * var(--u)) solid var(--navy);
+  box-shadow: calc(4 * var(--u)) calc(4 * var(--u)) 0 var(--navy);
+}
+
+/* tombol pixel (tanpa sudut membulat) */
+.btn {
+  font: inherit;
+  font-size: calc(18 * var(--u));
+  color: var(--navy);
+  cursor: pointer;
+  background: var(--orange);
+  border: calc(4 * var(--u)) solid var(--navy);
+  padding: calc(14 * var(--u)) calc(30 * var(--u));
+  box-shadow:
+    inset calc(-4 * var(--u)) calc(-4 * var(--u)) 0 var(--dark-orange),
+    inset calc(4 * var(--u)) calc(4 * var(--u)) 0 #ffe27a,
+    0 calc(6 * var(--u)) 0 var(--navy);
+}
+.btn:active {
+  transform: translateY(calc(4 * var(--u)));
+  box-shadow:
+    inset calc(-4 * var(--u)) calc(-4 * var(--u)) 0 var(--dark-orange),
+    inset calc(4 * var(--u)) calc(4 * var(--u)) 0 #ffe27a,
+    0 calc(2 * var(--u)) 0 var(--navy);
+}
+.btn.alt {
+  font-size: calc(12 * var(--u));
+  background: #e8ecf4;
+  box-shadow:
+    inset calc(-4 * var(--u)) calc(-4 * var(--u)) 0 #8a94a8,
+    inset calc(4 * var(--u)) calc(4 * var(--u)) 0 #fff,
+    0 calc(6 * var(--u)) 0 var(--navy);
+}
+.chip {
+  position: absolute;
+  bottom: calc(14 * var(--u));
+  z-index: 4;
+  font: inherit;
+  font-size: calc(10 * var(--u));
+  color: #fff;
+  cursor: pointer;
+  background: var(--navy);
+  border: calc(3 * var(--u)) solid #fff;
+  padding: calc(8 * var(--u)) calc(10 * var(--u));
+}
+#btnExit {
+  left: calc(14 * var(--u));
+}
+#btnMute {
+  right: calc(14 * var(--u));
+}
+
+/* bar loading bergaris-garis ala pixel */
+.bar {
+  width: 64%;
+  height: calc(28 * var(--u));
+  border: calc(4 * var(--u)) solid #fff;
+  background: rgba(255, 255, 255, 0.15);
+  padding: calc(3 * var(--u));
+}
+#fill {
+  height: 100%;
+  width: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--orange) 0 calc(8 * var(--u)),
+    var(--sun) calc(8 * var(--u)) calc(10 * var(--u))
+  );
+}
+:focus-visible {
+  outline: calc(3 * var(--u)) solid var(--sun);
+  outline-offset: 2px;
+}
+
+.credit-box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 25px;
+  color: #ffffff;
+}
+
+.credit-box span {
+  font-size: 13px;
+  text-align: left;
+  line-height: 1.3;
+}
+
+.asset-logo {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
